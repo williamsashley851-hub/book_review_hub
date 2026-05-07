@@ -1,9 +1,10 @@
 class ReviewsController < ApplicationController
+  before_action :set_book
   before_action :set_review, only: %i[ show edit update destroy ]
 
   # GET /reviews or /reviews.json
   def index
-    @reviews = Review.all
+    @reviews = @book.reviews # Lists only this book's review
   end
 
   # GET /reviews/1 or /reviews/1.json
@@ -12,7 +13,7 @@ class ReviewsController < ApplicationController
 
   # GET /reviews/new
   def new
-    @review = Review.new
+    @review = @book.reviews.build
   end
 
   # GET /reviews/1/edit
@@ -21,11 +22,11 @@ class ReviewsController < ApplicationController
 
   # POST /reviews or /reviews.json
   def create
-    @review = Review.new(review_params)
+    @review = @book.reviews.new(review_params)
 
     respond_to do |format|
       if @review.save
-        format.html { redirect_to @review, notice: "Review was successfully created." }
+        format.html { redirect_to book_path(@book), notice: "Review was successfully created." }
         format.json { render :show, status: :created, location: @review }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -38,7 +39,7 @@ class ReviewsController < ApplicationController
   def update
     respond_to do |format|
       if @review.update(review_params)
-        format.html { redirect_to @review, notice: "Review was successfully updated.", status: :see_other }
+        format.html { redirect_to book_path(@book), notice: "Review was successfully updated.", status: :see_other }
         format.json { render :show, status: :ok, location: @review }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -52,12 +53,16 @@ class ReviewsController < ApplicationController
     @review.destroy!
 
     respond_to do |format|
-      format.html { redirect_to reviews_path, notice: "Review was successfully destroyed.", status: :see_other }
+      format.html { redirect_to book_path(@book), notice: "Review was successfully destroyed.", status: :see_other }
       format.json { head :no_content }
     end
   end
 
   private
+    # Find the parent book using the ID from the nested route params.
+    def set_book
+      @book = Book.find(params[:book_id])
+    end
     # Use callbacks to share common setup or constraints between actions.
     def set_review
       @review = Review.find(params.expect(:id))
@@ -65,6 +70,6 @@ class ReviewsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def review_params
-      params.expect(review: [ :content, :rating, :book_id, :user_id ])
+      params.expect(review: [ :content, :rating])
     end
 end
