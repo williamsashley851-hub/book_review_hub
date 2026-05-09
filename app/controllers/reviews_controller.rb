@@ -1,7 +1,10 @@
 class ReviewsController < ApplicationController
+  before_action :authenticate_user!, except: [:index, :show]
+  
   before_action :set_book
-  before_action :set_review, only: %i[ show edit update destroy ]
-
+  before_action :set_review, only: [:show, :edit, :update, :destroy ]
+  before_action :ensure_owner, only: [:edit, :update, :destroy]
+ 
   # GET /reviews or /reviews.json
   def index
     @reviews = @book.reviews # Lists only this book's review
@@ -23,6 +26,7 @@ class ReviewsController < ApplicationController
   # POST /reviews or /reviews.json
   def create
     @review = @book.reviews.new(review_params)
+    @review.user = current_user
 
     respond_to do |format|
       if @review.save
@@ -65,9 +69,13 @@ class ReviewsController < ApplicationController
     end
     # Use callbacks to share common setup or constraints between actions.
     def set_review
-      @review = Review.find(params.expect(:id))
+      @review = @book.reviews.find(params[:id])
     end
-
+    def ensure_owner
+      unless @review.user_id == current_user.id
+        redirect_to book_path(@book), alert: "You are not authorized to perform this action."
+      end
+    end
     # Only allow a list of trusted parameters through.
     def review_params
       params.expect(review: [ :content, :rating])
