@@ -32,6 +32,11 @@
   </div>
 
   <div>
+    <%= form.label :cover_url, "Book Cover Image URL", style: "display: block" %>
+    <%= form.text_field :cover_url, placeholder: "Paste Google image URL here" %>
+  </div>
+
+  <div>
     <%= form.submit %>
   </div>
 <% end %>
