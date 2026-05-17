@@ -1,16 +1,46 @@
-<p style="color: green"><%= notice %></p>
-
 <% content_for :title, "Reviews" %>
 
-<h1>Reviews</h1>
+<div class="max-w-4xl mx-auto px-8 py-12" style="font-family: 'Georgia', serif;">
+  <h1 class="text-4xl font-black mb-8" style="color: #23003F;">
+    Reviews for <span style="color: #7D39EB;"><%= @book.title %></span>
+  </h1>
 
-<div id="reviews">
-  <% @reviews.each do |review| %>
-    <%= render review %>
-    <p>
-      <%= link_to "Show this review", review %>
-    </p>
+  <% if @reviews.empty? %>
+    <p style="color: #7D39EB;">No reviews yet. Be the first!</p>
+  <% else %>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <% @reviews.each do |review| %>
+        <div class="rounded-2xl p-6 shadow-md" style="background-color: #F8F4FF; border-left: 4px solid #7D39EB;">
+          <div class="flex justify-between items-start mb-3">
+            <span class="font-black" style="color: #23003F;">
+              <%= review.user&.email&.split('@')&.first || "Anonymous" %>
+            </span>
+            <span class="px-3 py-1 rounded-full text-sm font-black" style="background-color: #7D39EB; color: white;">
+              ⭐ <%= review.rating %>/5
+            </span>
+          </div>
+          <p style="color: #23003F;"><%= review.content %></p>
+          <% if user_signed_in? && review.user == current_user %>
+            <div class="mt-4 flex gap-3">
+              <%= link_to "Edit", edit_book_review_path(@book, review),
+                  class: "text-xs font-bold uppercase", style: "color: #7D39EB;" %>
+              <%= button_to "Delete", book_review_path(@book, review), method: :delete,
+                  class: "text-xs font-bold uppercase", style: "color: #F2619C; background: none; border: none; cursor: pointer;" %>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
   <% end %>
-</div>
 
-<%= link_to "New review", new_review_path %>
+  <div class="mt-8 flex gap-4">
+    <% if user_signed_in? %>
+      <%= link_to "Write a Review", new_book_review_path(@book),
+          class: "px-6 py-3 rounded-full font-black uppercase text-sm",
+          style: "background-color: #F2619C; color: white;" %>
+    <% end %>
+    <%= link_to "← Back to Book", book_path(@book),
+        class: "px-6 py-3 rounded-full font-black uppercase text-sm",
+        style: "background-color: #C6FF33; color: #23003F;" %>
+  </div>
+</div>

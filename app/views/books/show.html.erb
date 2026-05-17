@@ -1,8 +1,90 @@
-<%= render @book %>
+<div class="min-h-screen px-8 py-12" style="font-family: 'Georgia', serif;">
+  
+  <%# Book Details %>
+  <div class="max-w-4xl mx-auto">
+    <div class="rounded-3xl overflow-hidden shadow-xl flex flex-col md:flex-row" style="background-color: #23003F;">
+      
+      <%# Cover Image %>
+      <div class="md:w-1/3">
+        <% if @book.cover_url.present? %>
+          <%= image_tag @book.cover_url, class: "w-full h-full object-cover" %>
+        <% else %>
+          <div class="w-full h-64 flex items-center justify-center text-6xl" style="background-color: #7D39EB;">📚</div>
+        <% end %>
+      </div>
 
-<div>
-  <%= link_to "Edit this book", edit_book_path(@book) %> |
-  <%= link_to "Back to books", books_path %>
+      <%# Book Info %>
+      <div class="md:w-2/3 p-8">
+        <span class="text-xs font-black uppercase tracking-widest px-3 py-1 rounded-full" style="background-color: #FFFFFF; color: #23003F;">
+          <%= @book.genre %>
+        </span>
+        <h1 class="text-4xl font-black mt-4 mb-2" style="color: white;">
+          <%= @book.title %>
+        </h1>
+        <p class="text-lg mb-4" style="color: #BCACCE;">by <%= @book.author %></p>
+        <p class="leading-relaxed" style="color: #BCACCE;"><%= @book.description %></p>
 
-  <%= button_to "Destroy this book", @book, method: :delete %>
+        <div class="mt-6 flex gap-4 flex-wrap">
+          <% if user_signed_in? %>
+            <%= link_to "Write a Review", new_book_review_path(@book),
+                class: "px-6 py-3 rounded-full font-black uppercase text-sm",
+                style: "background-color: #F2619C; color: white;" %>
+          <% end %>
+          <% if user_signed_in? && @book.reviews.any? { |r| r.user == current_user } %>
+          <% end %>
+          <%= link_to "← Back to Books", books_path,
+              class: "px-6 py-3 rounded-full font-black uppercase text-sm",
+              style: "background-color: #C6FF33; color: #23003F;" %>
+        </div>
+      </div>
+    </div>
+
+    <%# Reviews Section %>
+    <div class="mt-12">
+      <h2 class="text-3xl font-black mb-8" style="color: #23003F;">
+        Reviews <span style="color: #7D39EB;">(<%= @book.reviews.count %>)</span>
+      </h2>
+
+      <% if @book.reviews.empty? %>
+        <div class="text-center py-16 rounded-3xl" style="background-color: #BCACCE20;">
+          <p class="text-2xl font-black" style="color: #23003F;">No reviews yet</p>
+          <p class="mt-2" style="color: #7D39EB;">Be the first to review this book!</p>
+        </div>
+      <% else %>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <% @book.reviews.each do |review| %>
+            <div class="rounded-2xl p-6 shadow-md" style="background-color: #F8F4FF; border-left: 4px solid #7D39EB;">
+              <div class="flex justify-between items-start mb-3">
+                <span class="font-black" style="color: #23003F;">
+                  <%= review.user&.email&.split('@')&.first || "Anonymous" %>
+                </span>
+                <span class="px-3 py-1 rounded-full text-sm font-black" style="background-color: #7D39EB; color: white;">
+                  ⭐ <%= review.rating %>/5
+                </span>
+              </div>
+              <p style="color: #23003F;"><%= review.content %></p>
+              <% if user_signed_in? && review.user == current_user %>
+                <div class="mt-4 flex gap-3">
+                  <%= link_to "Edit", edit_book_review_path(@book, review),
+                      class: "text-xs font-bold uppercase", style: "color: #7D39EB;" %>
+                  <%= button_to "Delete", book_review_path(@book, review), method: :delete,
+                      class: "text-xs font-bold uppercase", style: "color: #F2619C; background: none; border: none; cursor: pointer;" %>
+                </div>
+              <% end %>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+
+    <%# Admin controls %>
+    <% if user_signed_in? && current_user.email == "ashley.williams@vaulttechinc.com" %>
+      <div class="mt-8 pt-8 border-t flex gap-4" style="border-color: #BCACCE;">
+        <%= link_to "Edit Book", edit_book_path(@book),
+            class: "text-sm font-bold uppercase", style: "color: #7D39EB;" %>
+        <%= button_to "Delete Book", @book, method: :delete,
+            class: "text-sm font-bold uppercase", style: "color: #F2619C; background: none; border: none; cursor: pointer;" %>
+      </div>
+    <% end %>
+  </div>
 </div>
