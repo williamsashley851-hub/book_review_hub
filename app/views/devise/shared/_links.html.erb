@@ -1,25 +1,17 @@
 <%- if controller_name != 'sessions' %>
-  <p><%= link_to "Log in", new_session_path(resource_name) %></p>
+  <p><%= link_to "Log in", new_session_path(resource_name),
+        class: "inline-block mt-2 px-4 py-2 rounded-full font-bold uppercase text-xs shadow-md",
+        style: "background-color: #7D39EB; color: white;" %></p>
 <% end %>
 
 <%- if devise_mapping.registerable? && controller_name != 'registrations' %>
-  <p><%= link_to "Sign up", new_registration_path(resource_name) %></p>
+  <p><%= link_to "Sign up", new_registration_path(resource_name),
+        class: "inline-block mt-2 px-4 py-2 rounded-full font-bold uppercase text-xs shadow-md",
+        style: "background-color: #C6FF33; color: #23003F;" %></p>
 <% end %>
 
 <%- if devise_mapping.recoverable? && controller_name != 'passwords' && controller_name != 'registrations' %>
-  <p><%= link_to "Forgot your password?", new_password_path(resource_name) %></p>
-<% end %>
-
-<%- if devise_mapping.confirmable? && controller_name != 'confirmations' %>
-  <p><%= link_to "Didn't receive confirmation instructions?", new_confirmation_path(resource_name) %></p>
-<% end %>
-
-<%- if devise_mapping.lockable? && resource_class.unlock_strategy_enabled?(:email) && controller_name != 'unlocks' %>
-  <p><%= link_to "Didn't receive unlock instructions?", new_unlock_path(resource_name) %></p>
-<% end %>
-
-<%- if devise_mapping.omniauthable? %>
-  <%- resource_class.omniauth_providers.each do |provider| %>
-    <p><%= button_to "Sign in with #{OmniAuth::Utils.camelize(provider)}", omniauth_authorize_path(resource_name, provider), data: { turbo: false } %></p>
-  <% end %>
+  <p><%= link_to "Forgot your password?", new_password_path(resource_name),
+        class: "inline-block mt-2 px-4 py-2 rounded-full font-bold uppercase text-xs shadow-md",
+        style: "background-color: #F2619C; color: white;" %></p>
 <% end %>

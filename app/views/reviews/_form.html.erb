@@ -1,9 +1,10 @@
-<%= form_with(model: [@book, review]) do |form| %>
+<%= form_with(model: [@book, review], class: "space-y-6") do |form| %>
   <% if review.errors.any? %>
-    <div style="color: red">
-      <h2><%= pluralize(review.errors.count, "error") %> prohibited this review from being saved:</h2>
-
-      <ul>
+    <div class="bg-[#F2619C] text-white rounded-lg p-4">
+      <h2 class="font-bold mb-2">
+        <%= pluralize(review.errors.count, "error") %> prohibited this review from being saved:
+      </h2>
+      <ul class="list-disc list-inside text-sm">
         <% review.errors.each do |error| %>
           <li><%= error.full_message %></li>
         <% end %>
@@ -12,16 +13,22 @@
   <% end %>
 
   <div>
-    <%= form.label :content, style: "display: block" %>
-    <%= form.textarea :content %>
+    <%= form.label :content, class: "block text-sm font-bold mb-2", style: "color: #23003F;" %>
+    <%= form.text_area :content,
+          class: "w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#7D39EB]" %>
   </div>
 
   <div>
-    <%= form.label :rating, style: "display: block" %>
-    <%= form.number_field :rating %>
+    <%= form.label :rating, class: "block text-sm font-bold mb-2", style: "color: #23003F;" %>
+    <%= form.number_field :rating, in: 1..5,
+          class: "w-24 px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#7D39EB]" %>
+    <p class="text-xs mt-1" style="color: #7D39EB;">Rating between 1 and 5</p>
   </div>
   
   <div>
-    <%= form.submit %>
+    <%= form.submit "Submit Review",
+          class: "px-6 py-3 rounded-full font-black uppercase text-sm shadow-md",
+          style: "background-color: #F2619C; color: white;" %>
   </div>
 <% end %>
+

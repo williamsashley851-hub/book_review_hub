@@ -1,11 +1,15 @@
-<% content_for :title, "New review" %>
+<div class="min-h-screen px-8 py-12 flex items-center justify-center" style="font-family: 'Georgia', serif; background-color: #23003F;">
+  <div class="w-full max-w-2xl bg-white rounded-3xl shadow-xl p-8">
+    <h1 class="text-3xl font-black mb-6 text-center" style="color: #23003F;">
+      New Review
+    </h1>
 
-<h1>New review</h1>
+    <%= render "form", review: @review %>
 
-<%= render "form", review: @review %>
-
-<br>
-
-<div>
-  <%= link_to "Back to reviews", book_reviews_path(@book) %>
+    <div class="mt-8 text-center">
+      <%= link_to "← Back to Reviews", book_reviews_path(@book),
+          class: "px-6 py-3 rounded-full font-black uppercase text-sm shadow-md",
+          style: "background-color: #C6FF33; color: #23003F;" %>
+    </div>
+  </div>
 </div>

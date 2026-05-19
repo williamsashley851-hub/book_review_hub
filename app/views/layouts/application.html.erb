@@ -50,7 +50,7 @@
   <div class="flex gap-3 items-center">
     <% if user_signed_in? %>
       <%= link_to "My Reviews", "#", class: "px-4 py-2 rounded-full font-bold text-white transition-transform duration-200 hover:scale-110 hover:opacity-90", style: "background-color: #3CBF96" %>
-      <%= link_to "Logout", destroy_user_session_path, data: { turbo_method: :delete }, class: "px-4 py-2 rounded-full font-bold text-white transition-transform duration-200 hover:scale-110 hover:opacity-90", style: "background-color: #FF4040" %>
+      <%= button_to "Logout", destroy_user_session_path, method: :delete, data: { turbo: false }, class: "px-4 py-2 rounded-full font-bold text-white transition-transform duration-200 hover:scale-110 hover:opacity-90", style: "background-color: #FF4040; border: none; cursor: pointer;" %>
     <% else %>
       <%= link_to "Login", new_user_session_path, class: "px-4 py-2 rounded-full font-bold text-white transition-transform duration-200 hover:scale-110 hover:opacity-90", style: "background-color: #3CBF96" %>
       <%= link_to "Sign Up", new_user_registration_path, class: "px-4 py-2 rounded-full font-bold text-white transition-transform duration-200 hover:scale-110 hover:opacity-90", style: "background-color: #FFDF51; color: black;" %>
