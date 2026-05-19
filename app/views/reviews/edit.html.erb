@@ -1,12 +1,23 @@
-<% content_for :title, "Editing review" %>
+<% content_for :title, "Editing Review" %>
 
-<h1>Editing review</h1>
+<div class="min-h-screen px-8 py-12" 
+     style="font-family: 'Georgia', serif; background-image: url('/assets/wallpaper.jpg'); background-size: cover; background-position: center;">
+  <div class="max-w-3xl mx-auto bg-white bg-opacity-90 rounded-2xl p-8 shadow-lg">
+    <h1 class="text-3xl font-black mb-6" style="color: #23003F;">Editing Review</h1>
 
-<%= render "form", review: @review %>
+    <div class="rounded-2xl p-6 shadow-md mb-6" style="background-color: #F8F4FF; border-left: 4px solid #7D39EB;">
+      <%= render "form", review: @review %>
+    </div>
 
-<br>
+    <div class="flex gap-3 mt-4">
+      <%= link_to "Show Review", book_review_path(@book, @review),
+                  class: "px-4 py-2 rounded-full font-bold text-white transition-transform duration-200 hover:scale-110 hover:opacity-90",
+                  style: "background-color: #2E90CF" %>
 
-<div>
-  <%= link_to "Show this review", book_review_path(@book, @review) %> |
-  <%= link_to "Back to reviews", book_reviews_path(@book) %>
+      <%= link_to "Back to My Reviews", my_reviews_path,
+                  class: "px-4 py-2 rounded-full font-bold text-white transition-transform duration-200 hover:scale-110 hover:opacity-90",
+                  style: "background-color: #FFDF51; color: black;" %>
+    </div>
+  </div>
 </div>
+

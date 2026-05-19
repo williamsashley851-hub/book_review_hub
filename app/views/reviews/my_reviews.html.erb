@@ -18,9 +18,17 @@
                   style="background-color: #7D39EB; color: white;">
               ⭐ <%= review.rating %>/5
             </span>
+
+            <div class="mt-4">
+              <%= link_to "View", book_review_path(review.book, review),
+            class: "px-3 py-1 rounded-full font-bold text-white transition-transform duration-200 hover:scale-110 hover:opacity-90",
+            style: "background-color: #3CBF96" %>
+            </div>
           </div>
         <% end %>
       </div>
     <% end %>
   </div>
 </div>
+
+
