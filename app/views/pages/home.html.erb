@@ -1,0 +1,22 @@
+<div class="min-h-screen flex items-center justify-center px-8 py-12" style="font-family: 'Georgia', serif; background-color: #23003F;">
+  <div class="text-center max-w-2xl">
+    <h1 class="text-5xl font-black mb-6" style="color: white;">Welcome to HappyFlower Book Review Hub</h1>
+    <p class="text-lg mb-8" style="color: #BCACCE;">
+      Discover books, share your thoughts, and read reviews from others.
+    </p>
+    <div class="flex gap-4 justify-center">
+      <%= link_to "Browse Books", books_path,
+          class: "px-6 py-3 rounded-full font-black uppercase text-sm shadow-md",
+          style: "background-color: #C6FF33; color: #23003F;" %>
+      <% if user_signed_in? %>
+        <%= link_to "My Reviews", my_reviews_path,
+            class: "px-6 py-3 rounded-full font-black uppercase text-sm shadow-md",
+            style: "background-color: #F2619C; color: white;" %>
+      <% else %>
+        <%= link_to "Sign Up", new_user_registration_path,
+            class: "px-6 py-3 rounded-full font-black uppercase text-sm shadow-md",
+            style: "background-color: #7D39EB; color: white;" %>
+      <% end %>
+    </div>
+  </div>
+</div>

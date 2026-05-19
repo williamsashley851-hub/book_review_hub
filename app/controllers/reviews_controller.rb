@@ -62,6 +62,14 @@ class ReviewsController < ApplicationController
     end
   end
 
+def my_reviews
+    if user_signed_in?
+      @reviews = current_user.reviews.includes(:book)
+    else
+      redirect_to new_user_session_path, alert: "You must be logged in to view your reviews."
+    end
+  end
+
   private
     # Find the parent book using the ID from the nested route params.
     def set_book

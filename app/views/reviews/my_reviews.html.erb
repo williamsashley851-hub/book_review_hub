@@ -1,0 +1,25 @@
+<div class="min-h-screen px-8 py-12" style="font-family: 'Georgia', serif; background-color: #23003F;">
+  <div class="max-w-4xl mx-auto">
+    <h1 class="text-3xl font-black mb-8" style="color: white;">My Reviews</h1>
+
+    <% if @reviews.empty? %>
+      <div class="text-center py-16 rounded-3xl" style="background-color: #BCACCE20;">
+        <p class="text-2xl font-black" style="color: #23003F;">You have not written any reviews yet</p>
+        <p class="mt-2" style="color: #7D39EB;">Browse books and share your thoughts!</p>
+      </div>
+    <% else %>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <% @reviews.each do |review| %>
+          <div class="rounded-2xl p-6 shadow-md" style="background-color: #F8F4FF; border-left: 4px solid #7D39EB;">
+            <h2 class="font-black mb-2" style="color: #23003F;"><%= review.book.title %></h2>
+            <p style="color: #23003F;"><%= review.content %></p>
+            <span class="px-3 py-1 rounded-full text-sm font-black mt-2 inline-block"
+                  style="background-color: #7D39EB; color: white;">
+              ⭐ <%= review.rating %>/5
+            </span>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+</div>
