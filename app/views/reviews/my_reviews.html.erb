@@ -1,10 +1,11 @@
-<div class="min-h-screen px-8 py-12" style="font-family: 'Georgia', serif; background-color: #23003F;">
-  <div class="max-w-4xl mx-auto">
-    <h1 class="text-3xl font-black mb-8" style="color: white;">My Reviews</h1>
+<div class="min-h-screen px-8 py-12" 
+     style="font-family: 'Georgia', serif; background-image: url('/assets/wallpaper.jpg'); background-size: cover; background-position: center;">
+  <div class="max-w-4xl mx-auto bg-white bg-opacity-90 rounded-2xl p-8 shadow-lg">
+    <h1 class="text-3xl font-black mb-8" style="color: #23003F;">My Reviews</h1>
 
     <% if @reviews.empty? %>
       <div class="text-center py-16 rounded-3xl" style="background-color: #BCACCE20;">
-        <p class="text-2xl font-black" style="color: #23003F;">You have not written any reviews yet</p>
+        <p class="text-2xl font-black" style="color: #23003F;">You haven’t written any reviews yet</p>
         <p class="mt-2" style="color: #7D39EB;">Browse books and share your thoughts!</p>
       </div>
     <% else %>
