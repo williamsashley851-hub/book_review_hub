@@ -3,7 +3,7 @@
 A web app where users can browse books, read reviews, and submit their own reviews.
 
 ## Live Demo
-happyflower-book-review-hub-production.up.railway.app
+[happyflower-book-review-hub-production.up.railway.app](https://bookreviewhub-production.up.railway.app)
 
 ## Features
 - Browse books without an account
