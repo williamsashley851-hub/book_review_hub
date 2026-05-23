@@ -1,24 +1,19 @@
-# README
+# Book Review Hub
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+A web app where users can browse books, read reviews, and submit their own reviews.
 
-Things you may want to cover:
+## Live Demo
+happyflower-book-review-hub-production.up.railway.app
 
-* Ruby version
+## Features
+- Browse books without an account
+- Sign up / log in to write reviews
+- Star rating system
+- Edit and delete your own reviews
 
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+## Tech Stack
+- Ruby on Rails 8
+- PostgreSQL
+- Devise for authentication
+- Tailwind CSS
+- Deployed on Railway
